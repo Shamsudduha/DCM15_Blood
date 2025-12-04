@@ -92,7 +92,7 @@ const students = [
     { id: 90, name: "Fariha Tasneem", rollNumber: "90", sex: "Female", bloodGroup: "A+" },
     { id: 91, name: "Amrin Ahmed", rollNumber: "91", sex: "Female", bloodGroup: "O+" },
     { id: 92, name: "Md. Al Jariat Zisan", rollNumber: "92", sex: "Male", bloodGroup: "B+" },
-    { id: 93, name: "Sabrina Mahmud Shahrin", rollNumber: "93", sex: "Female", bloodGroup: "" },
+    { id: 93, name: "Sabrina Mahmud Shahrin", rollNumber: "93", sex: "Female", bloodGroup: "O+" },
     { id: 94, name: "Nurul Fays Manon", rollNumber: "94", sex: "Male", bloodGroup: "O+" },
     { id: 95, name: "Fariza Ruhaniath Momo", rollNumber: "95", sex: "Female", bloodGroup: "A+" },
     { id: 96, name: "Md. Al Amin", rollNumber: "96", sex: "Male", bloodGroup: "O+" },
@@ -102,3 +102,4 @@ const students = [
     { id: 100, name: "Monzur E Mowla Akash", rollNumber: "100", sex: "Male", bloodGroup: "B-" }
 
 ];
+
