@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students | Blood Donor Directory</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button and Title -->
+        <header class="header">
+            <div class="back-header">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back
+                </a>
+                <h1>All Students List</h1>
+            </div>
+            <p class="student-count" id="totalStudents">Total: 100 students</p>
+        </header>
+
+        <main>
+            <!-- Student List -->
+            <div class="students-list" id="allStudentsList">
+                <!-- Student items will appear here -->
+            </div>
+        </main>
+
+        <!-- Simple Footer -->
+        <footer class="footer">
+            <p>College Blood Donor Directory | For emergency use</p>
+        </footer>
+    </div>
+
+    <script src="students.js"></script>
+    <script>
+        // Function to create student item with sex
+        function createStudentItem(student) {
+            const item = document.createElement('div');
+            item.className = 'student-item';
+            
+            // Get gender icon
+            const genderIcon = student.sex === 'Male' ? 'mars' : 'venus';
+            
+            item.innerHTML = `
+                <div class="student-info">
+                    <div class="student-name">${student.name}</div>
+                    <div class="student-details">
+                        <span class="student-roll">Roll: ${student.rollNumber}</span>
+                        <span class="student-sex">
+                            <i class="fas fa-${genderIcon}"></i> ${student.sex}
+                        </span>
+                    </div>
+                </div>
+                <div class="blood-group">${student.bloodGroup || 'N/A'}</div>
+            `;
+            
+            return item;
+        }
+
+        // Load all students
+        document.addEventListener('DOMContentLoaded', () => {
+            const listContainer = document.getElementById('allStudentsList');
+            const totalStudents = document.getElementById('totalStudents');
+            
+            // Sort students by roll number
+            const sortedStudents = [...students].sort((a, b) => 
+                parseInt(a.rollNumber) - parseInt(b.rollNumber)
+            );
+            
+            // Add all students to list
+            sortedStudents.forEach(student => {
+                listContainer.appendChild(createStudentItem(student));
+            });
+            
+            // Update count
+            totalStudents.textContent = `Total: ${students.length} students`;
+        });
+    </script>
+</body>
+</html>
