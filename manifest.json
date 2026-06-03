@@ -1,0 +1,15 @@
+{
+  "name": "DCM 15 Blood Donor Directory",
+  "short_name": "Blood Donor",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#991b1b",
+  "theme_color": "#dc2626",
+  "icons": [
+    {
+      "src": "12.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
