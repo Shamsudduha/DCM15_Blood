@@ -3,23 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>HEMOGLOBIN - Donors Directory</title>
+    <title>DCM15_Donors Directory</title>
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     
     <style>
-        /* ============================================
-           COMPLETE CSS FOR DONORS PAGE
-           ============================================ */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Hanken Grotesk', sans-serif;
             background: radial-gradient(circle at top right, #4a0002, #121414 60%),
@@ -27,8 +18,6 @@
             min-height: 100vh;
             color: #e2e2e2;
         }
-        
-        /* Glass Card Effect */
         .glass-card {
             background: rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(20px);
@@ -36,39 +25,18 @@
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
         }
-        
         .glass-card:hover {
             border-color: rgba(220, 38, 38, 0.4);
             transform: translateY(-2px);
         }
-        
-        /* Donor List Container - Scrollbar only for donor cards */
         .donor-list-container {
             max-height: calc(100vh - 280px);
             overflow-y: auto;
             padding-right: 4px;
         }
-        
-        /* Custom Scrollbar for Donor List */
-        .donor-list-container::-webkit-scrollbar {
-            width: 4px;
-        }
-        
-        .donor-list-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-        }
-        
-        .donor-list-container::-webkit-scrollbar-thumb {
-            background: #dc2626;
-            border-radius: 10px;
-        }
-        
-        .donor-list-container::-webkit-scrollbar-thumb:hover {
-            background: #ffb4ab;
-        }
-        
-        /* Filters Scroll Container - Horizontal scroll for blood group chips */
+        .donor-list-container::-webkit-scrollbar { width: 4px; }
+        .donor-list-container::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.08); border-radius: 10px; }
+        .donor-list-container::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 10px; }
         .filters-scroll-container {
             overflow-x: auto;
             overflow-y: hidden;
@@ -77,22 +45,9 @@
             scrollbar-width: thin;
             padding-bottom: 8px;
         }
-        
-        .filters-scroll-container::-webkit-scrollbar {
-            height: 3px;
-        }
-        
-        .filters-scroll-container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-        
-        .filters-scroll-container::-webkit-scrollbar-thumb {
-            background: #dc2626;
-            border-radius: 10px;
-        }
-        
-        /* Filter Chips - SMALLER SIZE with RED active color */
+        .filters-scroll-container::-webkit-scrollbar { height: 3px; }
+        .filters-scroll-container::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        .filters-scroll-container::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 10px; }
         .filter-chip {
             display: inline-flex;
             white-space: nowrap;
@@ -104,100 +59,34 @@
             border-radius: 9999px;
             font-weight: 500;
         }
-        
-        .filter-chip:active {
-            transform: scale(0.95);
-        }
-        
-        /* Active Filter Chip - RED color */
+        .filter-chip:active { transform: scale(0.95); }
         .filter-chip-active {
             background: #dc2626 !important;
             color: white !important;
             box-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
             border: none;
         }
-        
-        /* Inactive Filter Chip */
         .filter-chip-inactive {
             background: rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: #e6bdb8;
         }
-        
-        .filter-chip-inactive:hover {
-            border-color: #dc2626;
-            color: #dc2626;
-        }
-        
-        /* Blood Type Badge */
+        .filter-chip-inactive:hover { border-color: #dc2626; color: #dc2626; }
         .blood-badge {
             background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), 0 4px 12px rgba(220,38,38,0.3);
         }
-        
-        /* Material Icons */
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        .blood-badge-unknown {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
         }
-        
-        /* Text Colors */
-        .text-primary {
-            color: #ffb4ab;
-        }
-        
-        .text-on-surface {
-            color: #e2e2e2;
-        }
-        
-        .text-on-surface-variant {
-            color: #e6bdb8;
-        }
-        
-        /* Background Colors */
-        .bg-surface\/80 {
-            background-color: rgba(18, 20, 20, 0.8);
-        }
-        
-        .bg-surface-container-lowest {
-            background-color: #0c0f0f;
-        }
-        
-        /* Typography */
-        .label-sm {
-            font-size: 12px;
-            font-weight: 500;
-            line-height: 16px;
-            letter-spacing: 0.05em;
-        }
-        
-        .headline-md {
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 32px;
-        }
-        
-        /* Pulse Animation */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .animate-pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        
-        /* Donor Card Styles */
-        .donor-card {
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .donor-card:active {
-            transform: scale(0.98);
-        }
-        
-        /* Bottom Navigation */
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .text-primary { color: #ffb4ab; }
+        .text-on-surface { color: #e2e2e2; }
+        .text-on-surface-variant { color: #e6bdb8; }
+        .bg-surface\/80 { background-color: rgba(18, 20, 20, 0.8); }
+        .label-sm { font-size: 12px; font-weight: 500; line-height: 16px; letter-spacing: 0.05em; }
+        .headline-md { font-size: 24px; font-weight: 600; line-height: 32px; }
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -212,9 +101,7 @@
             height: 80px;
             padding-left: 1rem;
             padding-right: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
-        
         .nav-link {
             display: flex;
             flex-direction: column;
@@ -223,39 +110,19 @@
             transition: all 0.2s ease;
             text-decoration: none;
         }
-        
-        .nav-link:active {
-            transform: scale(0.9);
-        }
-        
-        /* Active Tab Glow */
-        .active-tab-glow {
-            box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
-        }
-        
-        .bg-primary-container\/20 {
-            background-color: rgba(220, 38, 38, 0.2);
-        }
-        
-        /* Truncate Text */
-        .truncate {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+        .nav-link:active { transform: scale(0.9); }
+        .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     </style>
 </head>
 <body>
-    <!-- Top App Bar -->
     <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-white/5 flex items-center justify-center px-5 h-16">
         <div class="flex items-center gap-2">
-            <img alt="Logo" class="h-7 w-7 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtPdc_x_Z15HpnyBWpDJLiT1ifTYr4dcMQFiQLKR9k_QQbdBunF83cQwUsRhAD7Tj4MyYYCqnhTfu7nVII17Xhh19w2mRIRLbqXwm1uCpkc2YxoROPgZD0TqwquRWE1pGq_8tnAEdHIELR2JjFTma0HG7h83b4SHicGYfwpv481yP4X7FOIF9vU4qO6OE4Zoy1d0DFnR8KsoNn1we7jDtY5SPUwtYB8U-_ulk9rvToca1BC5_zMb5hNx3Y">
-            <h1 class="headline-md text-on-surface">Donors (100 Real Students)</h1>
+            <img alt="Logo" class="h-7 w-7 object-contain" src="12.png">
+            <h1 class="headline-md text-on-surface">Donors Directory</h1>
         </div>
     </header>
     
     <main class="pt-24 pb-32 px-5 max-w-xl mx-auto space-y-4">
-        <!-- Blood Type Filters (Group Names) - RED COLOR & SMALLER -->
         <section class="filters-scroll-container -mx-5 px-5">
             <div style="display: inline-flex; gap: 8px; padding-bottom: 4px;" id="filterContainer">
                 <button class="filter-chip filter-chip-active" data-blood="All">All</button>
@@ -270,7 +137,6 @@
             </div>
         </section>
         
-        <!-- Header Label with Count -->
         <div class="flex items-center justify-between px-1 opacity-80">
             <div class="flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
@@ -279,13 +145,21 @@
             <span class="label-sm text-primary" id="donorCount">100 Donors</span>
         </div>
         
-        <!-- Donor List - Scrollbar appears here (below group names) -->
         <div class="donor-list-container space-y-2" id="donorList">
             <div class="text-center py-10">Loading 100 real students...</div>
         </div>
+        
+        <!-- Footer -->
+        <div class="text-center py-4 mt-4">
+            <p class="text-xs text-on-surface-variant/50">
+                <span class="text-primary font-bold">DCM 15</span> Blood Donor Directory | 
+                <span class="text-primary font-bold">DCM 15</span> | 
+                Made by <span class="text-primary font-bold">SOUAD 76</span> | 
+                © 2025
+            </p>
+        </div>
     </main>
     
-    <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <a class="nav-link text-on-surface-variant/60 hover:text-primary transition-all" href="index.html">
             <span class="material-symbols-outlined">home</span>
@@ -304,9 +178,6 @@
     </nav>
 
     <script>
-        // ============================================
-        // 100 REAL STUDENT DATA
-        // ============================================
         const students = [
             { id: 1, name: "Deamun Muktaref Shrestho", rollNumber: "1", sex: "Male", bloodGroup: "B+" },
             { id: 2, name: "Syeda Anamika Rahman", rollNumber: "2", sex: "Female", bloodGroup: "A+" },
@@ -410,28 +281,29 @@
             { id: 100, name: "Monzur E Mowla Akash", rollNumber: "100", sex: "Male", bloodGroup: "B-" }
         ];
 
-        // Transform to donor format
+        function formatBloodType(bloodGroup) {
+            return (bloodGroup && bloodGroup.trim() !== "") ? bloodGroup : "-";
+        }
+
         const donors = students.map(student => ({
             id: student.id,
             name: student.name,
             roll: student.rollNumber,
-            bloodType: student.bloodGroup || "Unknown",
+            bloodType: formatBloodType(student.bloodGroup),
             sex: student.sex
         }));
 
-        // Render donors function
         function renderDonors(donorsToShow) {
             const container = document.getElementById('donorList');
             const countSpan = document.getElementById('donorCount');
-            
             countSpan.textContent = `${donorsToShow.length} Donors`;
-            
             if (donorsToShow.length === 0) {
                 container.innerHTML = `<div class="glass-card rounded-2xl p-8 text-center">No donors found</div>`;
                 return;
             }
-            
-            container.innerHTML = donorsToShow.map(donor => `
+            container.innerHTML = donorsToShow.map(donor => {
+                const isUnknown = donor.bloodType === "-";
+                return `
                 <div class="glass-card rounded-2xl p-3 flex items-center gap-3 cursor-pointer donor-card">
                     <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center">
                         <span class="material-symbols-outlined text-2xl text-primary">${donor.sex === 'Male' ? 'face' : 'face_3'}</span>
@@ -449,17 +321,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="blood-badge text-white w-12 h-12 rounded-xl flex items-center justify-center">
+                    <div class="${isUnknown ? 'blood-badge-unknown' : 'blood-badge'} text-white w-12 h-12 rounded-xl flex items-center justify-center">
                         <span class="font-bold text-lg">${donor.bloodType}</span>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
             
-            // Add click handlers to donor cards
             document.querySelectorAll('.donor-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const name = card.querySelector('h3')?.textContent;
-                    const blood = card.querySelector('.blood-badge span')?.textContent;
+                    const blood = card.querySelector('.blood-badge span, .blood-badge-unknown span')?.textContent;
                     const sex = card.querySelectorAll('.text-xs')[1]?.textContent;
                     const roll = card.querySelectorAll('.text-xs')[0]?.textContent;
                     alert(`📋 Donor Details:\n\nName: ${name}\n${roll}\nSex: ${sex}\nBlood Type: ${blood}`);
@@ -467,7 +338,6 @@
             });
         }
 
-        // Filter logic
         let currentFilter = 'All';
 
         function filterDonors() {
@@ -478,7 +348,6 @@
             renderDonors(filtered);
         }
 
-        // Filter chip click handlers - RED ACTIVE STYLE
         const filterChips = document.querySelectorAll('.filter-chip');
         
         function updateActiveFilter(activeChip) {
@@ -498,7 +367,6 @@
             });
         });
 
-        // Initial render
         renderDonors(donors);
     </script>
 </body>
