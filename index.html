@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>DCM15 - Blood Donor Directory</title>
+    <title>DCM15_Blood</title>
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,44 +13,42 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Hanken Grotesk', sans-serif;
-            background: #000000;
+            background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.12), transparent 50%),
+                        radial-gradient(circle at 100% 40%, rgba(220, 38, 38, 0.08), transparent 40%);
+            background-color: #121414;
             min-height: 100vh;
-            color: #ffffff;
+            color: #e2e2e2;
         }
         .glass-card {
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(220, 38, 38, 0.2);
-            border-top: 1px solid rgba(220, 38, 38, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
         }
         .glass-card:hover {
-            border-color: rgba(220, 38, 38, 0.6);
+            border-color: rgba(220, 38, 38, 0.4);
             transform: translateY(-2px);
         }
         .blood-type-btn {
             transition: all 0.2s ease;
             cursor: pointer;
-            color: #ffffff !important;
         }
         .blood-type-btn:active { transform: scale(0.95); }
-        .blood-type-btn:hover {
-            background: #dc2626;
-            color: white !important;
-            border-color: #dc2626;
-        }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        .text-primary { color: #dc2626 !important; }
-        .text-on-surface { color: #ffffff; }
+        .text-primary { color: #ffb4ab; }
+        .text-on-surface { color: #e2e2e2; }
         .text-on-surface-variant { color: #e6bdb8; }
+        .bg-surface\/40 { background-color: rgba(18, 20, 20, 0.4); }
+        .bg-surface-container\/40 { background-color: rgba(30, 32, 32, 0.4); }
         .headline-md { font-size: 24px; font-weight: 600; line-height: 32px; }
         .label-lg { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; }
         .label-sm { font-size: 12px; font-weight: 500; letter-spacing: 0.05em; }
         .pie-chart { width: 120px; height: 120px; border-radius: 50%; }
         
-        /* Donor list styles */
+        /* Donor list styles for home page */
         .donor-list-container {
             max-height: 400px;
             overflow-y: auto;
@@ -63,74 +61,13 @@
             background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), 0 4px 12px rgba(220,38,38,0.3);
         }
-        .blood-badge-unknown {
-            background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);
-        }
-        
-        /* Header Styles - Centered with White Text */
-        header {
-            background: #000000 !important;
-            border-bottom: 2px solid #dc2626 !important;
-        }
-        header h1, header .text-2xl, header .font-bold {
-            color: #ffffff !important;
-            text-align: center;
-            width: 100%;
-        }
-        
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 50;
-            background: #000000;
-            backdrop-filter: blur(40px);
-            border-top: 1px solid rgba(220, 38, 38, 0.3);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 80px;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        .nav-link {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        .nav-link.active, .nav-link.text-primary {
-            color: #dc2626 !important;
-        }
-        .nav-link:active { transform: scale(0.9); }
-        .active-tab-glow {
-            box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
-            background: rgba(220, 38, 38, 0.15);
-            border-radius: 9999px;
-        }
-        .bg-primary-container\/20 { background-color: rgba(220, 38, 38, 0.15); }
-        .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .animate-pulse { animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        
-        /* Centered container */
-        .center-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
     </style>
 </head>
 <body>
-    <header class="fixed top-0 w-full z-50 flex items-center justify-center px-5" style="height: 64px; background: #000000; border-bottom: 2px solid #dc2626;">
-        <div class="flex items-center justify-center gap-3">
-            <img alt="Logo" class="h-8 w-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtPdc_x_Z15HpnyBWpDJLiT1ifTYr4dcMQFiQLKR9k_QQbdBunF83cQwUsRhAD7Tj4MyYYCqnhTfu7nVII17Xhh19w2mRIRLbqXwm1uCpkc2YxoROPgZD0TqwquRWE1pGq_8tnAEdHIELR2JjFTma0HG7h83b4SHicGYfwpv481yP4X7FOIF9vU4qO6OE4Zoy1d0DFnR8KsoNn1we7jDtY5SPUwtYB8U-_ulk9rvToca1BC5_zMb5hNx3Y">
-            <h1 class="text-2xl font-bold tracking-tight" style="color: #ffffff;">Blood Donor Directory</h1>
+    <header class="bg-surface/40 backdrop-blur-2xl fixed top-0 w-full z-50 border-b border-white/10 flex items-center justify-between px-5 h-16">
+        <div class="flex items-center gap-3">
+            <img alt="Logo" class="h-8 w-8 object-contain" src="12.png">
+            <h1 class="text-2xl font-bold tracking-tight text-primary">Blood Donor Directory</h1>
         </div>
     </header>
     
@@ -138,26 +75,26 @@
         <!-- Blood Types Grid -->
         <section class="mb-8">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="headline-md font-medium tracking-tight" style="color: #ffffff;">Blood Types</h3>
-                <span class="label-lg cursor-pointer hover:underline" style="color: #dc2626;" onclick="showAllDonors()">View All</span>
+                <h3 class="headline-md font-medium tracking-tight">Blood Types</h3>
+                <span class="label-lg text-primary cursor-pointer hover:underline" onclick="showAllDonors()">View All</span>
             </div>
             <div class="grid grid-cols-4 gap-3">
-                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg" style="color: #ffffff;" data-blood="A+">A+</button>
-                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg" style="color: #ffffff;" data-blood="A-">A-</button>
-                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg" style="color: #ffffff;" data-blood="B+">B+</button>
-                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg" style="color: #ffffff;" data-blood="B-">B-</button>
-                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg" style="color: #ffffff;" data-blood="O+">O+</button>
-                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg" style="color: #ffffff;" data-blood="O-">O-</button>
-                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg" style="color: #ffffff;" data-blood="AB+">AB+</button>
-                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg" style="color: #ffffff;" data-blood="AB-">AB-</button>
+                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg text-on-surface" data-blood="A+">A+</button>
+                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg text-on-surface" data-blood="A-">A-</button>
+                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg text-on-surface" data-blood="B+">B+</button>
+                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg text-on-surface" data-blood="B-">B-</button>
+                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg text-on-surface" data-blood="O+">O+</button>
+                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg text-on-surface" data-blood="O-">O-</button>
+                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg text-on-surface" data-blood="AB+">AB+</button>
+                <button class="glass-card blood-type-btn rounded-xl h-16 flex items-center justify-center headline-md text-lg text-on-surface" data-blood="AB-">AB-</button>
             </div>
         </section>
         
         <!-- Donor Statistics -->
         <section class="donor-statistics-section mb-8">
             <div class="flex items-center gap-2 mb-4">
-                <span class="material-symbols-outlined" style="color: #dc2626;">analytics</span>
-                <h3 class="headline-md text-xl font-medium tracking-tight" style="color: #ffffff;">Donor Statistics</h3>
+                <span class="material-symbols-outlined text-primary text-xl">analytics</span>
+                <h3 class="headline-md text-xl font-medium tracking-tight">Donor Statistics</h3>
             </div>
             <div class="space-y-4">
                 <div class="glass-card rounded-2xl p-6 flex items-center justify-between">
@@ -170,7 +107,7 @@
                         </p>
                     </div>
                     <div class="bg-primary-container/20 p-5 rounded-full">
-                        <span class="material-symbols-outlined text-4xl" style="color: #dc2626; font-variation-settings: 'FILL' 1;">groups</span>
+                        <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">groups</span>
                     </div>
                 </div>
                 
@@ -193,31 +130,31 @@
                 
                 <div class="glass-card rounded-2xl p-6">
                     <div class="flex items-center justify-between mb-6">
-                        <h4 class="label-lg font-medium" style="color: #ffffff;">Group Distribution</h4>
-                        <span class="material-symbols-outlined" style="color: #dc2626;">donut_small</span>
+                        <h4 class="label-lg font-medium">Group Distribution</h4>
+                        <span class="material-symbols-outlined text-primary text-xl">donut_small</span>
                     </div>
                     <div class="flex flex-col gap-6 items-center">
                         <div class="pie-chart relative flex items-center justify-center ring-4 ring-white/5" style="width: 120px; height: 120px;">
-                            <div class="absolute inset-2 bg-black rounded-full flex items-center justify-center">
-                                <span class="material-symbols-outlined text-2xl" style="color: #dc2626;">water_drop</span>
+                            <div class="absolute inset-2 bg-[#121414] rounded-full flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-2xl">water_drop</span>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 w-full gap-x-8 gap-y-3">
                             <div class="flex items-center gap-3">
-                                <div class="w-2.5 h-2.5 rounded-full" style="background: #dc2626;"></div>
-                                <span class="text-xs label-sm" style="color: #ffffff;">O+ (<span class="o-positive-percent">0</span>%)</span>
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#dc2626]"></div>
+                                <span class="text-xs label-sm text-on-surface">O+ (<span class="o-positive-percent">0</span>%)</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-2.5 h-2.5 rounded-full" style="background: #921517;"></div>
-                                <span class="text-xs label-sm" style="color: #ffffff;">A+ (<span class="a-positive-percent">0</span>%)</span>
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#921517]"></div>
+                                <span class="text-xs label-sm text-on-surface">A+ (<span class="a-positive-percent">0</span>%)</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-2.5 h-2.5 rounded-full" style="background: #ffb4ab;"></div>
-                                <span class="text-xs label-sm" style="color: #ffffff;">B+ (<span class="b-positive-percent">0</span>%)</span>
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#ffb4ab]"></div>
+                                <span class="text-xs label-sm text-on-surface">B+ (<span class="b-positive-percent">0</span>%)</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <div class="w-2.5 h-2.5 rounded-full" style="background: #690005;"></div>
-                                <span class="text-xs label-sm" style="color: #ffffff;">Others (<span class="others-percent">0</span>%)</span>
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#690005]"></div>
+                                <span class="text-xs label-sm text-on-surface">Others (<span class="others-percent">0</span>%)</span>
                             </div>
                         </div>
                     </div>
@@ -225,42 +162,47 @@
             </div>
         </section>
         
-        <!-- Donor List Section -->
+        <!-- Donor List Section - Shows when blood group clicked -->
         <section id="donorListSection" style="display: none;">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="headline-md font-medium tracking-tight" style="color: #ffffff;" id="selectedBloodTitle">A+ Donors</h3>
-                <button class="text-sm" style="color: #dc2626;" onclick="closeDonorList()">✕ Close</button>
+                <h3 class="headline-md font-medium tracking-tight" id="selectedBloodTitle">A+ Donors</h3>
+                <button class="text-primary text-sm" onclick="closeDonorList()">✕ Close</button>
             </div>
-            <div class="donor-list-container space-y-2" id="homeDonorList"></div>
+            <div class="donor-list-container space-y-2" id="homeDonorList">
+                <!-- Donors will appear here -->
+            </div>
         </section>
         
-        <!-- Footer -->
+        <!-- ============================================ -->
+        <!-- FOOTER CREDIT - ADDED HERE -->
+        <!-- ============================================ -->
         <div class="text-center py-4 mt-4">
             <p class="text-xs text-on-surface-variant/50">
-                <span style="color: #dc2626; font-weight: bold;">DCM 15</span> Blood Donor Directory | 
-                <span style="color: #dc2626; font-weight: bold;">DCM 15</span> | 
-                Made by <span style="color: #dc2626; font-weight: bold;">SOUAD 76</span> | 
+                <span class="text-primary font-bold">DCM 15</span> Blood Donor Directory | 
+                <span class="text-primary font-bold">DCM 15</span> | 
+                Made by <span class="text-primary font-bold">SOUAD 76</span> | 
                 © 2025
             </p>
         </div>
     </main>
     
-    <nav class="bottom-nav">
-        <a class="nav-link active" href="index.html" style="color: #dc2626;">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
-            <span class="label-sm mt-1 font-bold">Home</span>
+    <nav class="bg-surface-container/40 backdrop-blur-3xl fixed bottom-0 w-full rounded-t-2xl z-50 border-t border-white/10 shadow-2xl flex justify-around items-center h-20">
+        <a class="nav-link flex flex-col items-center justify-center text-primary font-bold active:scale-95 duration-200 transition-all w-full py-2" href="index.html">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">home</span>
+            <span class="text-[11px] mt-1 font-medium">Home</span>
         </a>
-        <a class="nav-link" href="donors.html">
-            <span class="material-symbols-outlined">group</span>
-            <span class="label-sm mt-1">Donors</span>
+        <a class="nav-link flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-200 hover:text-primary transition-all w-full py-2" href="donors.html">
+            <span class="material-symbols-outlined text-2xl">group</span>
+            <span class="text-[11px] mt-1 font-medium">Donors</span>
         </a>
-        <a class="nav-link" href="banks.html">
-            <span class="material-symbols-outlined">local_hospital</span>
-            <span class="label-sm mt-1">Blood Banks</span>
+        <a class="nav-link flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-200 hover:text-primary transition-all w-full py-2" href="banks.html">
+            <span class="material-symbols-outlined text-2xl">local_hospital</span>
+            <span class="text-[11px] mt-1 font-medium">Blood Banks</span>
         </a>
     </nav>
 
     <script>
+        // 100 REAL STUDENT DATA
         const students = [
             { id: 1, name: "Deamun Muktaref Shrestho", rollNumber: "1", sex: "Male", bloodGroup: "B+" },
             { id: 2, name: "Syeda Anamika Rahman", rollNumber: "2", sex: "Female", bloodGroup: "A+" },
@@ -364,57 +306,143 @@
             { id: 100, name: "Monzur E Mowla Akash", rollNumber: "100", sex: "Male", bloodGroup: "B-" }
         ];
 
-        function formatBloodType(bg) { return (bg && bg.trim() !== "") ? bg : "-"; }
-
-        const donors = students.map(s => ({ id: s.id, name: s.name, roll: s.rollNumber, bloodType: formatBloodType(s.bloodGroup), gender: s.sex }));
+        const donors = students.map(student => ({
+            id: student.id,
+            name: student.name,
+            roll: student.rollNumber,
+            bloodType: student.bloodGroup || "Unknown",
+            gender: student.sex
+        }));
 
         function calculateStats() {
-            const total = donors.length, male = donors.filter(d => d.gender === 'Male').length, female = donors.filter(d => d.gender === 'Female').length;
-            const valid = donors.filter(d => d.bloodType !== "-");
-            const counts = {};
-            valid.forEach(d => counts[d.bloodType] = (counts[d.bloodType] || 0) + 1);
-            const o = counts['O+'] || 0, a = counts['A+'] || 0, b = counts['B+'] || 0, others = valid.length - (o + a + b);
-            const totalValid = valid.length || 1;
-            return { total, male, female, oPercent: ((o / totalValid) * 100).toFixed(0), aPercent: ((a / totalValid) * 100).toFixed(0), bPercent: ((b / totalValid) * 100).toFixed(0), othersPercent: ((others / totalValid) * 100).toFixed(0) };
+            const total = donors.length;
+            const male = donors.filter(d => d.gender === 'Male').length;
+            const female = donors.filter(d => d.gender === 'Female').length;
+            const validDonors = donors.filter(d => d.bloodType !== "Unknown");
+            const bloodGroupCounts = {};
+            validDonors.forEach(donor => { bloodGroupCounts[donor.bloodType] = (bloodGroupCounts[donor.bloodType] || 0) + 1; });
+            const oPositive = bloodGroupCounts['O+'] || 0;
+            const aPositive = bloodGroupCounts['A+'] || 0;
+            const bPositive = bloodGroupCounts['B+'] || 0;
+            const others = validDonors.length - (oPositive + aPositive + bPositive);
+            return {
+                total, male, female,
+                oPositivePercent: validDonors.length ? ((oPositive / validDonors.length) * 100).toFixed(0) : 0,
+                aPositivePercent: validDonors.length ? ((aPositive / validDonors.length) * 100).toFixed(0) : 0,
+                bPositivePercent: validDonors.length ? ((bPositive / validDonors.length) * 100).toFixed(0) : 0,
+                othersPercent: validDonors.length ? ((others / validDonors.length) * 100).toFixed(0) : 0
+            };
         }
 
-        function updateStats() {
-            const s = calculateStats();
-            document.querySelector('.total-donors-count').textContent = s.total;
-            document.querySelector('.male-donors-count').textContent = s.male;
-            document.querySelector('.female-donors-count').textContent = s.female;
-            document.querySelector('.o-positive-percent').textContent = `${s.oPercent}%`;
-            document.querySelector('.a-positive-percent').textContent = `${s.aPercent}%`;
-            document.querySelector('.b-positive-percent').textContent = `${s.bPercent}%`;
-            document.querySelector('.others-percent').textContent = `${s.othersPercent}%`;
-            const pie = document.querySelector('.pie-chart');
-            if (pie) {
-                const oS = parseFloat(s.oPercent), aS = oS + parseFloat(s.aPercent), bS = aS + parseFloat(s.bPercent);
-                pie.style.background = `conic-gradient(#dc2626 0% ${oS}%, #921517 ${oS}% ${aS}%, #ffb4ab ${aS}% ${bS}%, #690005 ${bS}% 100%)`;
+        function updateHomePageStats() {
+            const stats = calculateStats();
+            document.querySelector('.total-donors-count').textContent = stats.total;
+            document.querySelector('.male-donors-count').textContent = stats.male;
+            document.querySelector('.female-donors-count').textContent = stats.female;
+            document.querySelector('.o-positive-percent').textContent = `${stats.oPositivePercent}%`;
+            document.querySelector('.a-positive-percent').textContent = `${stats.aPositivePercent}%`;
+            document.querySelector('.b-positive-percent').textContent = `${stats.bPositivePercent}%`;
+            document.querySelector('.others-percent').textContent = `${stats.othersPercent}%`;
+            
+            const pieChart = document.querySelector('.pie-chart');
+            if (pieChart) {
+                const oStop = parseFloat(stats.oPositivePercent);
+                const aStop = oStop + parseFloat(stats.aPositivePercent);
+                const bStop = aStop + parseFloat(stats.bPositivePercent);
+                pieChart.style.background = `conic-gradient(#dc2626 0% ${oStop}%, #921517 ${oStop}% ${aStop}%, #ffb4ab ${aStop}% ${bStop}%, #690005 ${bStop}% 100%)`;
             }
         }
 
+        // Show donors when blood group clicked
         function showDonorsByBloodType(bloodType) {
-            const filtered = donors.filter(d => d.bloodType === bloodType);
-            const section = document.getElementById('donorListSection');
-            document.getElementById('selectedBloodTitle').textContent = `${bloodType} Donors (${filtered.length})`;
-            const container = document.getElementById('homeDonorList');
-            if (filtered.length === 0) container.innerHTML = `<div class="glass-card rounded-2xl p-8 text-center">No donors found</div>`;
-            else container.innerHTML = filtered.map(d => `<div class="glass-card rounded-2xl p-3 flex items-center gap-3 cursor-pointer"><div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center"><span class="material-symbols-outlined text-2xl" style="color: #dc2626;">${d.gender === 'Male' ? 'face' : 'face_3'}</span></div><div class="flex-1 min-w-0"><h3 class="font-bold truncate text-sm" style="color: #ffffff;">${d.name}</h3><div class="flex items-center gap-2 mt-0.5"><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]" style="color: #dc2626;">badge</span><span class="text-xs text-on-surface-variant/80">Roll: ${d.roll}</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]" style="color: #dc2626;">${d.gender === 'Male' ? 'male' : 'female'}</span><span class="text-xs text-on-surface-variant/80">${d.gender}</span></div></div></div><div class="${d.bloodType === '-' ? 'blood-badge-unknown' : 'blood-badge'} text-white w-12 h-12 rounded-xl flex items-center justify-center"><span class="font-bold text-lg">${d.bloodType}</span></div></div>`).join('');
-            section.style.display = 'block', section.scrollIntoView({ behavior: 'smooth' });
+            const filteredDonors = donors.filter(d => d.bloodType === bloodType);
+            const donorListSection = document.getElementById('donorListSection');
+            const selectedBloodTitle = document.getElementById('selectedBloodTitle');
+            const homeDonorList = document.getElementById('homeDonorList');
+            
+            selectedBloodTitle.textContent = `${bloodType} Donors (${filteredDonors.length})`;
+            
+            if (filteredDonors.length === 0) {
+                homeDonorList.innerHTML = `<div class="glass-card rounded-2xl p-8 text-center">No donors found with blood type ${bloodType}</div>`;
+            } else {
+                homeDonorList.innerHTML = filteredDonors.map(donor => `
+                    <div class="glass-card rounded-2xl p-3 flex items-center gap-3 cursor-pointer">
+                        <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-2xl text-primary">${donor.gender === 'Male' ? 'face' : 'face_3'}</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-on-surface truncate text-sm">${donor.name}</h3>
+                            <div class="flex items-center gap-2 mt-0.5">
+                                <div class="flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px] text-primary">badge</span>
+                                    <span class="text-xs text-on-surface-variant/80">Roll: ${donor.roll}</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[12px] text-primary">${donor.gender === 'Male' ? 'male' : 'female'}</span>
+                                    <span class="text-xs text-on-surface-variant/80">${donor.gender}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blood-badge text-white w-12 h-12 rounded-xl flex items-center justify-center">
+                            <span class="font-bold text-lg">${donor.bloodType}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            donorListSection.style.display = 'block';
+            donorListSection.scrollIntoView({ behavior: 'smooth' });
         }
 
         function showAllDonors() {
-            const section = document.getElementById('donorListSection');
-            document.getElementById('selectedBloodTitle').textContent = `All Donors (${donors.length})`;
-            const container = document.getElementById('homeDonorList');
-            container.innerHTML = donors.map(d => `<div class="glass-card rounded-2xl p-3 flex items-center gap-3 cursor-pointer"><div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center"><span class="material-symbols-outlined text-2xl" style="color: #dc2626;">${d.gender === 'Male' ? 'face' : 'face_3'}</span></div><div class="flex-1 min-w-0"><h3 class="font-bold truncate text-sm" style="color: #ffffff;">${d.name}</h3><div class="flex items-center gap-2 mt-0.5"><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]" style="color: #dc2626;">badge</span><span class="text-xs text-on-surface-variant/80">Roll: ${d.roll}</span></div><div class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]" style="color: #dc2626;">${d.gender === 'Male' ? 'male' : 'female'}</span><span class="text-xs text-on-surface-variant/80">${d.gender}</span></div></div></div><div class="${d.bloodType === '-' ? 'blood-badge-unknown' : 'blood-badge'} text-white w-12 h-12 rounded-xl flex items-center justify-center"><span class="font-bold text-lg">${d.bloodType}</span></div></div>`).join('');
-            section.style.display = 'block', section.scrollIntoView({ behavior: 'smooth' });
+            const donorListSection = document.getElementById('donorListSection');
+            const selectedBloodTitle = document.getElementById('selectedBloodTitle');
+            const homeDonorList = document.getElementById('homeDonorList');
+            
+            selectedBloodTitle.textContent = `All Donors (${donors.length})`;
+            
+            homeDonorList.innerHTML = donors.map(donor => `
+                <div class="glass-card rounded-2xl p-3 flex items-center gap-3 cursor-pointer">
+                    <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-2xl text-primary">${donor.gender === 'Male' ? 'face' : 'face_3'}</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-on-surface truncate text-sm">${donor.name}</h3>
+                        <div class="flex items-center gap-2 mt-0.5">
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[12px] text-primary">badge</span>
+                                <span class="text-xs text-on-surface-variant/80">Roll: ${donor.roll}</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[12px] text-primary">${donor.gender === 'Male' ? 'male' : 'female'}</span>
+                                <span class="text-xs text-on-surface-variant/80">${donor.gender}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blood-badge text-white w-12 h-12 rounded-xl flex items-center justify-center">
+                        <span class="font-bold text-lg">${donor.bloodType}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            donorListSection.style.display = 'block';
+            donorListSection.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function closeDonorList() { document.getElementById('donorListSection').style.display = 'none'; }
-        document.querySelectorAll('.blood-type-btn').forEach(btn => btn.addEventListener('click', function() { showDonorsByBloodType(this.getAttribute('data-blood')); }));
-        updateStats();
+        function closeDonorList() {
+            document.getElementById('donorListSection').style.display = 'none';
+        }
+
+        // Add click handlers to blood type buttons
+        document.querySelectorAll('.blood-type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const bloodType = this.getAttribute('data-blood');
+                showDonorsByBloodType(bloodType);
+            });
+        });
+
+        updateHomePageStats();
     </script>
+
 </body>
 </html>
