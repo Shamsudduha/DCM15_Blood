@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>HEMOGLOBIN - Blood Banks Directory (Dhaka)</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background: radial-gradient(circle at 0% 0%, rgba(220, 38, 38, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 100% 100%, rgba(220, 38, 38, 0.1) 0%, transparent 50%);
+            background-color: #121414;
+            min-height: 100vh;
+            color: #e2e2e2;
+            padding-bottom: 5rem;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .glass-card:hover {
+            border-color: rgba(220, 38, 38, 0.4);
+            transform: translateY(-2px);
+        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .text-primary { color: #ffb4ab; }
+        .text-on-surface { color: #e2e2e2; }
+        .text-on-surface-variant { color: #e6bdb8; }
+        .bg-surface\/60 { background-color: rgba(18, 20, 20, 0.6); }
+        .bg-surface-container\/40 { background-color: rgba(30, 32, 32, 0.4); }
+        .headline-md { font-size: 24px; font-weight: 600; line-height: 32px; }
+        .label-sm { font-size: 12px; font-weight: 500; line-height: 16px; letter-spacing: 0.05em; }
+        .active-tab-glow { box-shadow: 0 0 15px rgba(220, 38, 38, 0.3); }
+        .body-md { font-size: 14px; font-weight: 400; line-height: 20px; }
+        
+        /* Scrollbar for banks list */
+        .banks-list-container {
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .banks-list-container::-webkit-scrollbar { width: 4px; }
+        .banks-list-container::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.08); border-radius: 10px; }
+        .banks-list-container::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 10px; }
+        
+        /* Call button style */
+        .call-btn {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            transition: all 0.2s ease;
+        }
+        .call-btn:hover {
+            background: rgba(34, 197, 94, 0.3);
+            transform: scale(1.05);
+        }
+        .direction-btn {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.2s ease;
+        }
+        .direction-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <header class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-xl border-b border-white/10 flex items-center justify-between px-5" style="height: 64px;">
+        <div class="flex items-center gap-3">
+            <img alt="Logo" class="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtPdc_x_Z15HpnyBWpDJLiT1ifTYr4dcMQFiQLKR9k_QQbdBunF83cQwUsRhAD7Tj4MyYYCqnhTfu7nVII17Xhh19w2mRIRLbqXwm1uCpkc2YxoROPgZD0TqwquRWE1pGq_8tnAEdHIELR2JjFTma0HG7h83b4SHicGYfwpv481yP4X7FOIF9vU4qO6OE4Zoy1d0DFnR8KsoNn1we7jDtY5SPUwtYB8U-_ulk9rvToca1BC5_zMb5hNx3Y">
+            <h1 class="headline-md text-primary uppercase tracking-tight">Blood Banks Dhaka</h1>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="text-xs text-on-surface-variant/60">10 Centers</span>
+            <span class="material-symbols-outlined text-primary text-xl">bloodtype</span>
+        </div>
+    </header>
+    
+    <main class="pt-24 pb-32 px-5 max-w-lg mx-auto">
+        <!-- Header Section -->
+        <div class="mb-5">
+            <h2 class="text-xl font-bold text-primary mb-1">🩸 Blood Banks in Dhaka</h2>
+            <p class="text-xs text-on-surface-variant/70">Verified blood donation centers & transfusion services</p>
+        </div>
+        
+        <!-- Banks List Container with Scrollbar -->
+        <div class="banks-list-container space-y-4" id="banksList">
+            <!-- Banks will be dynamically loaded here -->
+        </div>
+        
+        <!-- Emergency Note -->
+        <div class="glass-card rounded-xl p-4 mt-5 text-center">
+            <span class="material-symbols-outlined text-primary text-2xl">emergency</span>
+            <p class="text-xs text-on-surface-variant/80 mt-1">For emergency blood requirements, please call the blood bank directly before visiting.</p>
+        </div>
+    </main>
+    
+    <nav class="fixed bottom-0 w-full rounded-t-xl z-50 bg-surface-container/40 backdrop-blur-2xl border-t border-white/10 flex justify-around items-center" style="height: 80px; padding-left: 1rem; padding-right: 1rem;">
+        <a class="nav-link flex flex-col items-center justify-center transition-all active:scale-90 duration-200" href="index.html" style="color: rgba(226, 226, 226, 0.6); text-decoration: none;">
+            <span class="material-symbols-outlined">home</span>
+            <span class="label-sm mt-1">Home</span>
+        </a>
+        <a class="nav-link flex flex-col items-center justify-center transition-all active:scale-90 duration-200" href="donors.html" style="color: rgba(226, 226, 226, 0.6); text-decoration: none;">
+            <span class="material-symbols-outlined">group</span>
+            <span class="label-sm mt-1">Donors</span>
+        </a>
+        <a class="nav-link flex flex-col items-center justify-center font-bold bg-primary-container/20 active-tab-glow rounded-full px-4 py-1 active:scale-90 duration-200" href="banks.html" style="color: #ffb4ab; text-decoration: none;">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bloodtype</span>
+            <span class="label-sm mt-1">Blood Banks</span>
+        </a>
+    </nav>
+
+    <script>
+        // Real Blood Banks Data for Dhaka
+        const bloodBanks = [
+            {
+                id: 1,
+                name: "Quantum Foundation Voluntary Blood Donation Program & Lab",
+                address: "31/V (Ground Floor), Shilpacharya Zainul Abedin Sarak, Shantinagar (Beside Eastern Plus Market), Dhaka-1217",
+                phoneNumbers: ["+88 02 222221869", "+88 01714 010869", "+88 01329 746677"],
+                mapsLink: "https://maps.google.com/?q=Quantum+Foundation+Blood+Lab+Shantinagar+Dhaka",
+                established: "Quantum Foundation"
+            },
+            {
+                id: 2,
+                name: "Bangladesh Red Crescent Blood Center",
+                address: "7/5, Aurangzeb Road, Mohammadpur, Dhaka-1207",
+                phoneNumbers: ["+88 01811 458537", "+88 02 48121182"],
+                mapsLink: "https://maps.google.com/?q=Bangladesh+Red+Crescent+Blood+Center+Mohammadpur+Dhaka",
+                established: "Red Crescent"
+            },
+            {
+                id: 3,
+                name: "Sandhani (Central / Dhaka Medical College Unit)",
+                address: "Dhaka Medical College Unit, Ramna, Dhaka-1000",
+                phoneNumbers: ["+88 02 9668609", "+88 01819 284878"],
+                mapsLink: "https://maps.google.com/?q=Sandhani+Dhaka+Medical+College+Dhaka",
+                established: "Sandhani"
+            },
+            {
+                id: 4,
+                name: "BADHAN (Central Office)",
+                address: "TSC (Ground Floor), University of Dhaka, Shahbagh, Dhaka-1000",
+                phoneNumbers: ["+88 01534 982674", "+88 02 58612545"],
+                mapsLink: "https://maps.google.com/?q=Badhan+TSC+University+of+Dhaka",
+                established: "BADHAN"
+            },
+            {
+                id: 5,
+                name: "Police Blood Bank",
+                address: "Central Police Hospital, Rajarbagh, Dhaka-1217",
+                phoneNumbers: ["+88 01713 398386", "+88 02 9362573"],
+                mapsLink: "https://maps.google.com/?q=Central+Police+Hospital+Rajarbagh+Dhaka",
+                established: "Police Hospital"
+            },
+            {
+                id: 6,
+                name: "Islami Bank Hospital Blood Bank (Kakrail)",
+                address: "30, VIP Road, Kakrail, Dhaka-1000",
+                phoneNumbers: ["+88 02 8317090", "+88 02 9336421"],
+                mapsLink: "https://maps.google.com/?q=Islami+Bank+Hospital+Kakrail+Dhaka",
+                established: "Islami Bank Hospital"
+            },
+            {
+                id: 7,
+                name: "Thalassemia Blood Bank (Bangladesh Thalassemia Hospital)",
+                address: "30 Chamelibag, 1st Lane, Shantinagar, Dhaka-1217",
+                phoneNumbers: ["+88 02 8332481", "+88 01733 971510"],
+                mapsLink: "https://maps.google.com/?q=Bangladesh+Thalassemia+Hospital+Chamelibag+Dhaka",
+                established: "Thalassemia Hospital"
+            },
+            {
+                id: 8,
+                name: "Labaid Hospital Blood Bank",
+                address: "House # 01 & 03, Road-04, Dhanmondi, Dhaka-1205",
+                phoneNumbers: ["10606 (Hotline)", "+88 02 58610793"],
+                mapsLink: "https://maps.google.com/?q=Labaid+Cardiac+Hospital+Dhanmondi+Dhaka",
+                established: "Labaid Hospital"
+            },
+            {
+                id: 9,
+                name: "Green Life Hospital Blood Bank",
+                address: "32, Bir Uttam K.M. Shafiullah Sarak (Green Road), Dhanmondi, Dhaka-1205",
+                phoneNumbers: ["10653 (Hotline)", "+88 02 9612345"],
+                mapsLink: "https://maps.google.com/?q=Green+Life+Hospital+Green+Road+Dhaka",
+                established: "Green Life Hospital"
+            },
+            {
+                id: 10,
+                name: "Mukti Blood Bank & Pathology Lab",
+                address: "54 (1st Floor), Bir-Uttam A.M. Shafiullah Road, Free School Street, Hatirpool, Dhaka-1207",
+                phoneNumbers: ["+88 02 8624249", "+88 01715 010376"],
+                mapsLink: "https://maps.google.com/?q=Mukti+Blood+Bank+Free+School+Street+Dhaka",
+                established: "Mukti Blood Bank"
+            }
+        ];
+
+        // Function to format phone numbers as clickable links
+        function formatPhoneNumbers(numbers) {
+            return numbers.map(num => {
+                // Extract digits for tel link
+                const digits = num.replace(/[^0-9+]/g, '');
+                return `<a href="tel:${digits}" class="call-btn inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs text-green-400 hover:text-green-300 transition-all mr-1 mb-1" style="background: rgba(34, 197, 94, 0.1);">
+                            <span class="material-symbols-outlined text-[14px]">call</span>
+                            ${num}
+                        </a>`;
+            }).join('');
+        }
+
+        // Render all blood banks
+        function renderBloodBanks() {
+            const container = document.getElementById('banksList');
+            
+            container.innerHTML = bloodBanks.map(bank => `
+                <div class="glass-card bank-card rounded-xl p-4 transition-all duration-300" data-id="${bank.id}">
+                    <div class="flex items-start justify-between gap-2">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-on-surface text-base mb-2">${bank.name}</h3>
+                            <div class="flex items-start gap-2 mb-2">
+                                <span class="material-symbols-outlined text-primary text-[18px] mt-0.5">location_on</span>
+                                <p class="text-xs text-on-surface-variant/80 leading-relaxed">${bank.address}</p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-1 mt-2">
+                                <span class="material-symbols-outlined text-primary text-[16px]">call</span>
+                                <div class="flex flex-wrap gap-1">
+                                    ${formatPhoneNumbers(bank.phoneNumbers)}
+                                </div>
+                            </div>
+                        </div>
+                        <a href="${bank.mapsLink}" target="_blank" class="direction-btn flex flex-col items-center justify-center p-2 rounded-xl min-w-[50px] transition-all" onclick="event.stopPropagation();">
+                            <span class="material-symbols-outlined text-blue-400 text-[22px]">directions</span>
+                            <span class="text-[9px] text-blue-400/80 mt-0.5">Map</span>
+                        </a>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-white/5 flex items-center justify-between">
+                        <div class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-primary text-[12px]">verified</span>
+                            <span class="text-[9px] text-on-surface-variant/50">Verified Center</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="material-symbols-outlined text-primary text-[12px]">blood_drop</span>
+                            <span class="text-[9px] text-on-surface-variant/50">24/7 Emergency</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add click handler for entire card (optional - shows summary)
+            document.querySelectorAll('.bank-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Don't trigger if clicking on map link or call button
+                    if (e.target.closest('.direction-btn') || e.target.closest('.call-btn')) {
+                        return;
+                    }
+                    const bankName = this.querySelector('h3')?.textContent;
+                    alert(`🏥 ${bankName}\n\nFor blood donation or emergency blood requirements, please call the provided numbers.`);
+                });
+            });
+        }
+
+        // Initialize
+        renderBloodBanks();
+        
+        console.log('Loaded', bloodBanks.length, 'real blood banks in Dhaka');
+    </script>
+</body>
+</html>

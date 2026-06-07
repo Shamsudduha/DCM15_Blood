@@ -1,0 +1,683 @@
+/* ============================================
+   FINAL CSS - HEMOGLOBIN APPLICATION
+   Unified Design System for All Pages
+   ============================================ */
+
+/* --------------------------------------------
+   RESET & BASE
+--------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Hanken Grotesk', sans-serif;
+    background-color: #121414;
+    min-height: 100vh;
+    color: #e2e2e2;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------
+   BACKGROUND GRADIENTS
+--------------------------------------------- */
+/* Home Page Background */
+body.home-page {
+    background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.12), transparent 50%),
+                radial-gradient(circle at 100% 40%, rgba(220, 38, 38, 0.08), transparent 40%),
+                #121414;
+}
+
+/* Donors Page Background */
+body.donors-page {
+    background: radial-gradient(circle at top right, #4a0002, #121414 60%),
+                radial-gradient(circle at bottom left, #1a0001, #121414 80%);
+}
+
+/* Banks Page Background */
+body.banks-page {
+    background: radial-gradient(circle at 0% 0%, rgba(220, 38, 38, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+                #121414;
+}
+
+/* --------------------------------------------
+   TYPOGRAPHY SYSTEM
+--------------------------------------------- */
+.display-lg {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 48px;
+    letter-spacing: -0.02em;
+}
+
+.headline-lg {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: -0.01em;
+}
+
+.headline-lg-mobile {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 36px;
+}
+
+.headline-md {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.body-lg {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+.body-md {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.label-lg {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+}
+
+.label-sm {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------
+   COLOR VARIABLES
+--------------------------------------------- */
+:root {
+    /* Surfaces */
+    --surface: #121414;
+    --surface-dim: #121414;
+    --surface-bright: #37393a;
+    --surface-container-lowest: #0c0f0f;
+    --surface-container-low: #1a1c1c;
+    --surface-container: #1e2020;
+    --surface-container-high: #282a2b;
+    --surface-container-highest: #333535;
+    
+    /* Text Colors */
+    --on-surface: #e2e2e2;
+    --on-surface-variant: #e6bdb8;
+    --inverse-surface: #e2e2e2;
+    --inverse-on-surface: #2f3131;
+    
+    /* Primary Red System */
+    --primary: #ffb4ab;
+    --on-primary: #690005;
+    --primary-container: #dc2626;
+    --on-primary-container: #fff6f5;
+    --inverse-primary: #bf0715;
+    
+    /* Secondary */
+    --secondary: #ffb4ac;
+    --on-secondary: #690007;
+    --secondary-container: #921517;
+    --on-secondary-container: #ff9f95;
+    
+    /* Tertiary */
+    --tertiary: #ffb3b0;
+    --on-tertiary: #670211;
+    --tertiary-container: #c2494b;
+    --on-tertiary-container: #fff6f5;
+    
+    /* Error */
+    --error: #ffb4ab;
+    --on-error: #690005;
+    --error-container: #93000a;
+    --on-error-container: #ffdad6;
+    
+    /* Outline */
+    --outline: #ac8884;
+    --outline-variant: #5c403c;
+    
+    /* Background */
+    --background: #121414;
+    --on-background: #e2e2e2;
+    --surface-variant: #333535;
+    
+    /* Fixed Colors */
+    --primary-fixed: #ffdad6;
+    --primary-fixed-dim: #ffb4ab;
+    --on-primary-fixed: #410002;
+    --on-primary-fixed-variant: #93000b;
+    
+    --surface-tint: #ffb4ab;
+    
+    /* Spacing */
+    --margin-mobile: 20px;
+    --gutter-mobile: 12px;
+    --stack-sm: 8px;
+    --stack-md: 16px;
+    --stack-lg: 32px;
+    --base: 8px;
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-default: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-full: 9999px;
+}
+
+/* --------------------------------------------
+   GLASSMORPHISM COMPONENTS
+--------------------------------------------- */
+.glass-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    border-color: rgba(220, 38, 38, 0.4);
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------
+   BUTTONS
+--------------------------------------------- */
+.btn-primary {
+    background: var(--primary-container);
+    color: white;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}
+
+.btn-primary:hover {
+    background: #b91c1c;
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.4);
+}
+
+/* --------------------------------------------
+   BLOOD TYPE BUTTONS (Home Page)
+--------------------------------------------- */
+.blood-type-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.blood-type-btn:active {
+    transform: scale(0.95);
+    background: rgba(220, 38, 38, 0.2);
+    border-color: rgba(220, 38, 38, 0.4);
+}
+
+/* --------------------------------------------
+   FILTER CHIPS (Donors Page)
+   RED COLOR - SMALLER SIZE
+--------------------------------------------- */
+.filters-scroll-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding-bottom: 8px;
+}
+
+.filters-scroll-container::-webkit-scrollbar {
+    height: 3px;
+}
+
+.filters-scroll-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.filters-scroll-container::-webkit-scrollbar-thumb {
+    background: #dc2626;
+    border-radius: 10px;
+}
+
+.filter-chip {
+    display: inline-flex;
+    white-space: nowrap;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 12px !important;
+    padding: 5px 14px !important;
+    border-radius: 9999px;
+    font-weight: 500;
+}
+
+.filter-chip:active {
+    transform: scale(0.95);
+}
+
+/* Active Filter Chip - RED */
+.filter-chip-active {
+    background: #dc2626 !important;
+    color: white !important;
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
+    border: none;
+}
+
+/* Inactive Filter Chip */
+.filter-chip-inactive {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e6bdb8;
+}
+
+.filter-chip-inactive:hover {
+    border-color: #dc2626;
+    color: #dc2626;
+}
+
+/* --------------------------------------------
+   BLOOD BADGE
+--------------------------------------------- */
+.blood-badge {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 
+                0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* --------------------------------------------
+   BLOOD GLOW EFFECT
+--------------------------------------------- */
+.blood-glow {
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.2);
+}
+
+/* --------------------------------------------
+   ACTIVE TAB GLOW
+--------------------------------------------- */
+.active-tab-glow {
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
+}
+
+/* --------------------------------------------
+   PIE CHART (Home Page)
+--------------------------------------------- */
+.pie-chart {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #dc2626 0% 35%, 
+        #921517 35% 60%, 
+        #ffb4ab 60% 80%, 
+        #690005 80% 100%
+    );
+}
+
+/* --------------------------------------------
+   SCROLLBARS
+--------------------------------------------- */
+/* Donor List Scrollbar - RED */
+.donor-list-container {
+    max-height: calc(100vh - 320px);
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.donor-list-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.donor-list-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+.donor-list-container::-webkit-scrollbar-thumb {
+    background: #dc2626;
+    border-radius: 10px;
+}
+
+.donor-list-container::-webkit-scrollbar-thumb:hover {
+    background: #ffb4ab;
+}
+
+/* Banks List Scrollbar - RED */
+.banks-list-container {
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.banks-list-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.banks-list-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+.banks-list-container::-webkit-scrollbar-thumb {
+    background: #dc2626;
+    border-radius: 10px;
+}
+
+/* Hide scrollbar utility */
+.scroll-hide::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-hide,
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* --------------------------------------------
+   SEARCH BAR (Donors Page)
+   BLACK BACKGROUND
+--------------------------------------------- */
+.search-input {
+    background-color: #0a0a0a !important;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e2e2e2;
+    height: 44px;
+    border-radius: 12px;
+    padding-left: 44px;
+    padding-right: 16px;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: #dc2626;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+}
+
+.search-input::placeholder {
+    color: rgba(226, 226, 226, 0.4);
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(226, 226, 226, 0.6);
+    font-size: 20px;
+}
+
+/* --------------------------------------------
+   DONOR CARD
+--------------------------------------------- */
+.donor-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.donor-card:active {
+    transform: scale(0.98);
+}
+
+/* --------------------------------------------
+   CALL & DIRECTION BUTTONS (Banks Page)
+--------------------------------------------- */
+.call-btn {
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #4ade80;
+    text-decoration: none;
+}
+
+.call-btn:hover {
+    background: rgba(34, 197, 94, 0.3);
+    transform: scale(1.05);
+}
+
+.direction-btn {
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 12px;
+    min-width: 50px;
+    text-decoration: none;
+}
+
+.direction-btn:hover {
+    background: rgba(59, 130, 246, 0.3);
+    transform: scale(1.05);
+}
+
+/* --------------------------------------------
+   MATERIAL ICONS OVERRIDE
+--------------------------------------------- */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* --------------------------------------------
+   LAYOUT HELPERS
+--------------------------------------------- */
+.fixed-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+}
+
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 50;
+}
+
+/* --------------------------------------------
+   BOTTOM NAVIGATION
+--------------------------------------------- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 50;
+    background: rgba(30, 32, 32, 0.4);
+    backdrop-filter: blur(40px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.nav-link:active {
+    transform: scale(0.9);
+}
+
+/* --------------------------------------------
+   UTILITY CLASSES
+--------------------------------------------- */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.tracking-wider {
+    letter-spacing: 0.05em;
+}
+
+.tracking-widest {
+    letter-spacing: 0.1em;
+}
+
+.text-primary {
+    color: #ffb4ab;
+}
+
+.text-on-surface {
+    color: #e2e2e2;
+}
+
+.text-on-surface-variant {
+    color: #e6bdb8;
+}
+
+.bg-surface\/80 {
+    background-color: rgba(18, 20, 20, 0.8);
+}
+
+.bg-surface-container-lowest {
+    background-color: #0c0f0f;
+}
+
+.bg-surface\/40 {
+    background-color: rgba(18, 20, 20, 0.4);
+}
+
+.bg-surface-container\/40 {
+    background-color: rgba(30, 32, 32, 0.4);
+}
+
+.bg-primary-container\/20 {
+    background-color: rgba(220, 38, 38, 0.2);
+}
+
+/* --------------------------------------------
+   ANIMATIONS
+--------------------------------------------- */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --------------------------------------------
+   RESPONSIVE DESIGN
+--------------------------------------------- */
+@media (max-width: 640px) {
+    .headline-lg {
+        font-size: 28px;
+        line-height: 36px;
+    }
+    
+    .display-lg {
+        font-size: 32px;
+        line-height: 40px;
+    }
+    
+    .donor-list-container {
+        max-height: calc(100vh - 300px);
+    }
+}
+
+/* --------------------------------------------
+   CARD HOVER EFFECTS
+--------------------------------------------- */
+.bank-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* --------------------------------------------
+   BLOOD GROUP DISTRIBUTION COLORS
+--------------------------------------------- */
+.bg-o-positive {
+    background-color: #dc2626;
+}
+
+.bg-a-positive {
+    background-color: #921517;
+}
+
+.bg-b-positive {
+    background-color: #ffb4ab;
+}
+
+.bg-others {
+    background-color: #690005;
+}

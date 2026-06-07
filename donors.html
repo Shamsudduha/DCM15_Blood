@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>HEMOGLOBIN - Donors Directory</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           COMPLETE CSS FOR DONORS PAGE
+           ============================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background: radial-gradient(circle at top right, #4a0002, #121414 60%),
+                        radial-gradient(circle at bottom left, #1a0001, #121414 80%);
+            min-height: 100vh;
+            color: #e2e2e2;
+        }
+        
+        /* Glass Card Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(220, 38, 38, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        /* Donor List Container - Scrollbar only for donor cards */
+        .donor-list-container {
+            max-height: calc(100vh - 280px);
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        
+        /* Custom Scrollbar for Donor List */
+        .donor-list-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .donor-list-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+        }
+        
+        .donor-list-container::-webkit-scrollbar-thumb {
+            background: #dc2626;
+            border-radius: 10px;
+        }
+        
+        .donor-list-container::-webkit-scrollbar-thumb:hover {
+            background: #ffb4ab;
+        }
+        
+        /* Filters Scroll Container - Horizontal scroll for blood group chips */
+        .filters-scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            padding-bottom: 8px;
+        }
+        
+        .filters-scroll-container::-webkit-scrollbar {
+            height: 3px;
+        }
+        
+        .filters-scroll-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .filters-scroll-container::-webkit-scrollbar-thumb {
+            background: #dc2626;
+            border-radius: 10px;
+        }
+        
+        /* Filter Chips - SMALLER SIZE with RED active color */
+        .filter-chip {
+            display: inline-flex;
+            white-space: nowrap;
+            margin-right: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 12px !important;
+            padding: 5px 14px !important;
+            border-radius: 9999px;
+            font-weight: 500;
+        }
+        
+        .filter-chip:active {
+            transform: scale(0.95);
+        }
+        
+        /* Active Filter Chip - RED color */
+        .filter-chip-active {
+            background: #dc2626 !important;
+            color: white !important;
+            box-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
+            border: none;
+        }
+        
+        /* Inactive Filter Chip */
+        .filter-chip-inactive {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e6bdb8;
+        }
+        
+        .filter-chip-inactive:hover {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+        
+        /* Blood Type Badge */
+        .blood-badge {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), 0 4px 12px rgba(220,38,38,0.3);
+        }
+        
+        /* Material Icons */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Text Colors */
+        .text-primary {
+            color: #ffb4ab;
+        }
+        
+        .text-on-surface {
+            color: #e2e2e2;
+        }
+        
+        .text-on-surface-variant {
+            color: #e6bdb8;
+        }
+        
+        /* Background Colors */
+        .bg-surface\/80 {
+            background-color: rgba(18, 20, 20, 0.8);
+        }
+        
+        .bg-surface-container-lowest {
+            background-color: #0c0f0f;
+        }
+        
+        /* Typography */
+        .label-sm {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 16px;
+            letter-spacing: 0.05em;
+        }
+        
+        .headline-md {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 32px;
+        }
+        
+        /* Pulse Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        /* Donor Card Styles */
+        .donor-card {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .donor-card:active {
+            transform: scale(0.98);
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 50;
+            background: rgba(18, 20, 20, 0.8);
+            backdrop-filter: blur(24px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 80px;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .nav-link:active {
+            transform: scale(0.9);
+        }
+        
+        /* Active Tab Glow */
+        .active-tab-glow {
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
+        }
+        
+        .bg-primary-container\/20 {
+            background-color: rgba(220, 38, 38, 0.2);
+        }
+        
+        /* Truncate Text */
+        .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top App Bar -->
+    <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-white/5 flex items-center justify-center px-5 h-16">
+        <div class="flex items-center gap-2">
+            <img alt="Logo" class="h-7 w-7 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtPdc_x_Z15HpnyBWpDJLiT1ifTYr4dcMQFiQLKR9k_QQbdBunF83cQwUsRhAD7Tj4MyYYCqnhTfu7nVII17Xhh19w2mRIRLbqXwm1uCpkc2YxoROPgZD0TqwquRWE1pGq_8tnAEdHIELR2JjFTma0HG7h83b4SHicGYfwpv481yP4X7FOIF9vU4qO6OE4Zoy1d0DFnR8KsoNn1we7jDtY5SPUwtYB8U-_ulk9rvToca1BC5_zMb5hNx3Y">
+            <h1 class="headline-md text-on-surface">Donors (100 Real Students)</h1>
+        </div>
+    </header>
+    
+    <main class="pt-24 pb-32 px-5 max-w-xl mx-auto space-y-4">
+        <!-- Blood Type Filters (Group Names) - RED COLOR & SMALLER -->
+        <section class="filters-scroll-container -mx-5 px-5">
+            <div style="display: inline-flex; gap: 8px; padding-bottom: 4px;" id="filterContainer">
+                <button class="filter-chip filter-chip-active" data-blood="All">All</button>
+                <button class="filter-chip filter-chip-inactive" data-blood="A+">A+</button>
+                <button class="filter-chip filter-chip-inactive" data-blood="A-">A-</button>
+                <button class="filter-chip filter-chip-inactive" data-blood="B+">B+</button>
+                <button class="filter-chip filter-chip-inactive" data-blood="B-">B-</button>
+                <button class="filter-chip filter-chip-inactive" data-blood="O+">O+</button>
+                <button class="filter-chip filter-chip-inactive" data-blood="O-">O-</button>
+                <button class="filter-chip filter-chip-inactive" data-blood="AB+">AB+</button>
+                <button class="filter-chip filter-chip-inactive" data-blood="AB-">AB-</button>
+            </div>
+        </section>
+        
+        <!-- Header Label with Count -->
+        <div class="flex items-center justify-between px-1 opacity-80">
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                <span class="label-sm text-on-surface-variant uppercase tracking-[0.15em]">Available Donors</span>
+            </div>
+            <span class="label-sm text-primary" id="donorCount">100 Donors</span>
+        </div>
+        
+        <!-- Donor List - Scrollbar appears here (below group names) -->
+        <div class="donor-list-container space-y-2" id="donorList">
+            <div class="text-center py-10">Loading 100 real students...</div>
+        </div>
+    </main>
+    
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a class="nav-link text-on-surface-variant/60 hover:text-primary transition-all" href="index.html">
+            <span class="material-symbols-outlined">home</span>
+            <span class="label-sm mt-1">Home</span>
+        </a>
+        <a class="nav-link text-primary transition-all" href="donors.html">
+            <div class="flex flex-col items-center">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+                <span class="label-sm mt-1 font-bold">Donors</span>
+            </div>
+        </a>
+        <a class="nav-link text-on-surface-variant/60 hover:text-primary transition-all" href="banks.html">
+            <span class="material-symbols-outlined">local_hospital</span>
+            <span class="label-sm mt-1">Blood Banks</span>
+        </a>
+    </nav>
+
+    <script>
+        // ============================================
+        // 100 REAL STUDENT DATA
+        // ============================================
+        const students = [
+            { id: 1, name: "Deamun Muktaref Shrestho", rollNumber: "1", sex: "Male", bloodGroup: "B+" },
+            { id: 2, name: "Syeda Anamika Rahman", rollNumber: "2", sex: "Female", bloodGroup: "A+" },
+            { id: 3, name: "Anindita Bhowmick", rollNumber: "3", sex: "Female", bloodGroup: "A+" },
+            { id: 4, name: "Shorazoom Muneer Khair", rollNumber: "4", sex: "Male", bloodGroup: "A+" },
+            { id: 5, name: "Afia Rahman Siddika", rollNumber: "5", sex: "Female", bloodGroup: "O+" },
+            { id: 6, name: "Shrestha Chakroborty", rollNumber: "6", sex: "Female", bloodGroup: "O+" },
+            { id: 7, name: "Jurain Mahmud Jureen", rollNumber: "7", sex: "Female", bloodGroup: "A+" },
+            { id: 8, name: "Nusrat Mehzabeen Sumara", rollNumber: "8", sex: "Female", bloodGroup: "A+" },
+            { id: 9, name: "Paromita Dutta", rollNumber: "9", sex: "Female", bloodGroup: "B+" },
+            { id: 10, name: "Md. Tawseef Hasan", rollNumber: "10", sex: "Male", bloodGroup: "A+" },
+            { id: 11, name: "Ridita Paul", rollNumber: "11", sex: "Female", bloodGroup: "B+" },
+            { id: 12, name: "Jassia Afroz Sumaiya", rollNumber: "12", sex: "Female", bloodGroup: "" },
+            { id: 13, name: "Shamima Yeasmin Sumona", rollNumber: "13", sex: "Female", bloodGroup: "A+" },
+            { id: 14, name: "Abu Tayab Mumen", rollNumber: "14", sex: "Male", bloodGroup: "O+" },
+            { id: 15, name: "Sumiya Binte Reza", rollNumber: "15", sex: "Female", bloodGroup: "O+" },
+            { id: 16, name: "Nurush Safi Khan", rollNumber: "16", sex: "Male", bloodGroup: "AB+" },
+            { id: 17, name: "Md. Abrar Tazwar Islam", rollNumber: "17", sex: "Male", bloodGroup: "A+" },
+            { id: 18, name: "M. Latifur Rahman", rollNumber: "18", sex: "Male", bloodGroup: "AB+" },
+            { id: 19, name: "Towheda Mostafa Jawya", rollNumber: "19", sex: "Female", bloodGroup: "A+" },
+            { id: 20, name: "Sanjida Khanam Setu", rollNumber: "20", sex: "Female", bloodGroup: "B+" },
+            { id: 21, name: "Tangin Akhter Marena", rollNumber: "21", sex: "Female", bloodGroup: "B+" },
+            { id: 22, name: "Anika Tahsin Mohima", rollNumber: "22", sex: "Female", bloodGroup: "B+" },
+            { id: 23, name: "Gazi Mosammat Humaira", rollNumber: "23", sex: "Female", bloodGroup: "O+" },
+            { id: 24, name: "Mashtura Haque Odri", rollNumber: "24", sex: "Female", bloodGroup: "O+" },
+            { id: 25, name: "Mymona Siddiqua", rollNumber: "25", sex: "Female", bloodGroup: "O+" },
+            { id: 26, name: "Faria Noor", rollNumber: "26", sex: "Female", bloodGroup: "B+" },
+            { id: 27, name: "Hride Das", rollNumber: "27", sex: "Female", bloodGroup: "O+" },
+            { id: 28, name: "Mst. Maesha Afrin", rollNumber: "28", sex: "Female", bloodGroup: "B+" },
+            { id: 29, name: "Sadika Mahmuda", rollNumber: "29", sex: "Female", bloodGroup: "B+" },
+            { id: 30, name: "Himel Das Srabon", rollNumber: "30", sex: "Male", bloodGroup: "A+" },
+            { id: 31, name: "Shekh Maria Sultana", rollNumber: "31", sex: "Female", bloodGroup: "O+" },
+            { id: 32, name: "Kazi Fiaz Hassan", rollNumber: "32", sex: "Male", bloodGroup: "B+" },
+            { id: 33, name: "Sanjana Ahmed Promi", rollNumber: "33", sex: "Female", bloodGroup: "O+" },
+            { id: 34, name: "Md. Shaifullah Rafid", rollNumber: "34", sex: "Male", bloodGroup: "O+" },
+            { id: 35, name: "Afrin Ahmed Munia", rollNumber: "35", sex: "Female", bloodGroup: "" },
+            { id: 36, name: "Samia Kabir", rollNumber: "36", sex: "Female", bloodGroup: "B+" },
+            { id: 37, name: "Tanbir Alam", rollNumber: "37", sex: "Male", bloodGroup: "A+" },
+            { id: 38, name: "Yeasmin Arafat", rollNumber: "38", sex: "Female", bloodGroup: "B+" },
+            { id: 39, name: "Adrita Amin", rollNumber: "39", sex: "Female", bloodGroup: "A+" },
+            { id: 40, name: "Afsana Akter Akhi", rollNumber: "40", sex: "Female", bloodGroup: "O+" },
+            { id: 41, name: "Aisha Zahin Nur", rollNumber: "41", sex: "Female", bloodGroup: "B+" },
+            { id: 42, name: "Nurjahan Akter Laboni", rollNumber: "42", sex: "Female", bloodGroup: "B+" },
+            { id: 43, name: "Sabrina Sadiya", rollNumber: "43", sex: "Female", bloodGroup: "O+" },
+            { id: 44, name: "Tasnim Akter Fayika", rollNumber: "44", sex: "Female", bloodGroup: "AB+" },
+            { id: 45, name: "Naimul Islam Salman", rollNumber: "45", sex: "Male", bloodGroup: "B+" },
+            { id: 46, name: "Md. Arafat Hossain Sajib", rollNumber: "46", sex: "Male", bloodGroup: "AB+" },
+            { id: 47, name: "Most. Humaira Jahan", rollNumber: "47", sex: "Female", bloodGroup: "A+" },
+            { id: 48, name: "Md. Masud Anam", rollNumber: "48", sex: "Male", bloodGroup: "A+" },
+            { id: 49, name: "Jannatul Ferdous Warsee", rollNumber: "49", sex: "Female", bloodGroup: "AB+" },
+            { id: 50, name: "Nazneen Islam", rollNumber: "50", sex: "Female", bloodGroup: "O+" },
+            { id: 51, name: "Rumana Akter Borsha", rollNumber: "51", sex: "Female", bloodGroup: "B+" },
+            { id: 52, name: "Rubina Azad", rollNumber: "52", sex: "Female", bloodGroup: "A+" },
+            { id: 53, name: "Shahriar Zidan Zarif", rollNumber: "53", sex: "Male", bloodGroup: "A+" },
+            { id: 54, name: "Sumaya Sultana Tajbin", rollNumber: "54", sex: "Female", bloodGroup: "B+" },
+            { id: 55, name: "Mohaimenul Islam Arman", rollNumber: "55", sex: "Male", bloodGroup: "B+" },
+            { id: 56, name: "Lamisa Tasnim", rollNumber: "56", sex: "Female", bloodGroup: "O+" },
+            { id: 57, name: "Riya Mitra", rollNumber: "57", sex: "Female", bloodGroup: "A+" },
+            { id: 58, name: "Bissanath Debnath", rollNumber: "58", sex: "Male", bloodGroup: "B+" },
+            { id: 59, name: "Rubaiya Rahman", rollNumber: "59", sex: "Female", bloodGroup: "O+" },
+            { id: 60, name: "Md. Amit Hasan Priyo", rollNumber: "60", sex: "Male", bloodGroup: "O+" },
+            { id: 61, name: "Sahanima Bhuiyan Simi", rollNumber: "61", sex: "Female", bloodGroup: "O+" },
+            { id: 62, name: "Tashnia Kabir Obantee", rollNumber: "62", sex: "Female", bloodGroup: "B+" },
+            { id: 63, name: "Hosne Jannat Maisha", rollNumber: "63", sex: "Female", bloodGroup: "AB+" },
+            { id: 64, name: "Nyema Binte Alam", rollNumber: "64", sex: "Female", bloodGroup: "O+" },
+            { id: 65, name: "Maidah Sultana", rollNumber: "65", sex: "Female", bloodGroup: "B+" },
+            { id: 66, name: "Taosif Ahasan Zisan", rollNumber: "66", sex: "Male", bloodGroup: "A+" },
+            { id: 67, name: "Mst. Maria Sarker", rollNumber: "67", sex: "Female", bloodGroup: "O+" },
+            { id: 68, name: "Abdullah Al Muhim", rollNumber: "68", sex: "Male", bloodGroup: "O+" },
+            { id: 69, name: "Md. Mehedi Hasan Munna", rollNumber: "69", sex: "Male", bloodGroup: "A+" },
+            { id: 70, name: "Md. Nayeem Bhuiyan", rollNumber: "70", sex: "Male", bloodGroup: "A+" },
+            { id: 71, name: "Md. Sadikul Islam Shihab", rollNumber: "71", sex: "Male", bloodGroup: "AB+" },
+            { id: 72, name: "Farhan Mostafiz", rollNumber: "72", sex: "Male", bloodGroup: "A+" },
+            { id: 73, name: "Md. Rahatul Islam", rollNumber: "73", sex: "Male", bloodGroup: "B+" },
+            { id: 74, name: "Iqra Mehjabin", rollNumber: "74", sex: "Female", bloodGroup: "B+" },
+            { id: 75, name: "Sumaiya Akter", rollNumber: "75", sex: "Female", bloodGroup: "B+" },
+            { id: 76, name: "Abu Souad Shamsudduha", rollNumber: "76", sex: "Male", bloodGroup: "O+" },
+            { id: 77, name: "Dil Afrose Supti", rollNumber: "77", sex: "Female", bloodGroup: "O+" },
+            { id: 78, name: "Jannatun Naima", rollNumber: "78", sex: "Female", bloodGroup: "A+" },
+            { id: 79, name: "Md. Shahidul Islam Fuad", rollNumber: "79", sex: "Male", bloodGroup: "A+" },
+            { id: 80, name: "Pranto Roy", rollNumber: "80", sex: "Male", bloodGroup: "B+" },
+            { id: 81, name: "Rajaul Karim Sajib", rollNumber: "81", sex: "Male", bloodGroup: "AB+" },
+            { id: 82, name: "Shofeullah Raihan", rollNumber: "82", sex: "Male", bloodGroup: "B-" },
+            { id: 83, name: "Sabiha Akter Eva", rollNumber: "83", sex: "Female", bloodGroup: "AB+" },
+            { id: 84, name: "Shah Muksitol Islam", rollNumber: "84", sex: "Male", bloodGroup: "AB+" },
+            { id: 85, name: "Ashma-Ul-Husna", rollNumber: "85", sex: "Female", bloodGroup: "A+" },
+            { id: 86, name: "Debi Rani Das", rollNumber: "86", sex: "Female", bloodGroup: "B+" },
+            { id: 87, name: "Hafiz Al Asad", rollNumber: "87", sex: "Male", bloodGroup: "O+" },
+            { id: 88, name: "Md. Mahmudul Hasan Joy", rollNumber: "88", sex: "Male", bloodGroup: "O+" },
+            { id: 89, name: "Md. Rakib Hossain", rollNumber: "89", sex: "Male", bloodGroup: "A+" },
+            { id: 90, name: "Fariha Tasneem", rollNumber: "90", sex: "Female", bloodGroup: "A+" },
+            { id: 91, name: "Amrin Ahmed", rollNumber: "91", sex: "Female", bloodGroup: "O+" },
+            { id: 92, name: "Md. Al Jariat Zisan", rollNumber: "92", sex: "Male", bloodGroup: "B+" },
+            { id: 93, name: "Sabrina Mahmud Shahrin", rollNumber: "93", sex: "Female", bloodGroup: "O+" },
+            { id: 94, name: "Nurul Fays Manon", rollNumber: "94", sex: "Male", bloodGroup: "O+" },
+            { id: 95, name: "Fariza Ruhaniath Momo", rollNumber: "95", sex: "Female", bloodGroup: "A+" },
+            { id: 96, name: "Md. Al Amin", rollNumber: "96", sex: "Male", bloodGroup: "O+" },
+            { id: 97, name: "Mossa. Ferdowsi Akter", rollNumber: "97", sex: "Female", bloodGroup: "O+" },
+            { id: 98, name: "Israt Zarin", rollNumber: "98", sex: "Female", bloodGroup: "O+" },
+            { id: 99, name: "Delowar Hosen Rony", rollNumber: "99", sex: "Male", bloodGroup: "AB+" },
+            { id: 100, name: "Monzur E Mowla Akash", rollNumber: "100", sex: "Male", bloodGroup: "B-" }
+        ];
+
+        // Transform to donor format
+        const donors = students.map(student => ({
+            id: student.id,
+            name: student.name,
+            roll: student.rollNumber,
+            bloodType: student.bloodGroup || "Unknown",
+            sex: student.sex
+        }));
+
+        // Render donors function
+        function renderDonors(donorsToShow) {
+            const container = document.getElementById('donorList');
+            const countSpan = document.getElementById('donorCount');
+            
+            countSpan.textContent = `${donorsToShow.length} Donors`;
+            
+            if (donorsToShow.length === 0) {
+                container.innerHTML = `<div class="glass-card rounded-2xl p-8 text-center">No donors found</div>`;
+                return;
+            }
+            
+            container.innerHTML = donorsToShow.map(donor => `
+                <div class="glass-card rounded-2xl p-3 flex items-center gap-3 cursor-pointer donor-card">
+                    <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-2xl text-primary">${donor.sex === 'Male' ? 'face' : 'face_3'}</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-on-surface truncate text-sm">${donor.name}</h3>
+                        <div class="flex items-center gap-2 mt-0.5">
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[12px] text-primary">badge</span>
+                                <span class="text-xs text-on-surface-variant/80">Roll: ${donor.roll}</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[12px] text-primary">${donor.sex === 'Male' ? 'male' : 'female'}</span>
+                                <span class="text-xs text-on-surface-variant/80">${donor.sex}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blood-badge text-white w-12 h-12 rounded-xl flex items-center justify-center">
+                        <span class="font-bold text-lg">${donor.bloodType}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add click handlers to donor cards
+            document.querySelectorAll('.donor-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const name = card.querySelector('h3')?.textContent;
+                    const blood = card.querySelector('.blood-badge span')?.textContent;
+                    const sex = card.querySelectorAll('.text-xs')[1]?.textContent;
+                    const roll = card.querySelectorAll('.text-xs')[0]?.textContent;
+                    alert(`📋 Donor Details:\n\nName: ${name}\n${roll}\nSex: ${sex}\nBlood Type: ${blood}`);
+                });
+            });
+        }
+
+        // Filter logic
+        let currentFilter = 'All';
+
+        function filterDonors() {
+            let filtered = donors;
+            if (currentFilter !== 'All') {
+                filtered = filtered.filter(d => d.bloodType === currentFilter);
+            }
+            renderDonors(filtered);
+        }
+
+        // Filter chip click handlers - RED ACTIVE STYLE
+        const filterChips = document.querySelectorAll('.filter-chip');
+        
+        function updateActiveFilter(activeChip) {
+            filterChips.forEach(chip => {
+                chip.classList.remove('filter-chip-active');
+                chip.classList.add('filter-chip-inactive');
+            });
+            activeChip.classList.remove('filter-chip-inactive');
+            activeChip.classList.add('filter-chip-active');
+        }
+        
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                updateActiveFilter(this);
+                currentFilter = this.getAttribute('data-blood');
+                filterDonors();
+            });
+        });
+
+        // Initial render
+        renderDonors(donors);
+    </script>
+</body>
+</html>
