@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>HEMOGLOBIN - Blood Banks Directory (Dhaka)</title>
+    <title>DCM15_Blood Banks Directory</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -45,7 +45,7 @@
         
         /* Scrollbar for banks list */
         .banks-list-container {
-            max-height: calc(100vh - 180px);
+            max-height: calc(100vh - 250px);
             overflow-y: auto;
             padding-right: 4px;
         }
@@ -78,19 +78,24 @@
     <header class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-xl border-b border-white/10 flex items-center justify-between px-5" style="height: 64px;">
         <div class="flex items-center gap-3">
             <img alt="Logo" class="w-8 h-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtPdc_x_Z15HpnyBWpDJLiT1ifTYr4dcMQFiQLKR9k_QQbdBunF83cQwUsRhAD7Tj4MyYYCqnhTfu7nVII17Xhh19w2mRIRLbqXwm1uCpkc2YxoROPgZD0TqwquRWE1pGq_8tnAEdHIELR2JjFTma0HG7h83b4SHicGYfwpv481yP4X7FOIF9vU4qO6OE4Zoy1d0DFnR8KsoNn1we7jDtY5SPUwtYB8U-_ulk9rvToca1BC5_zMb5hNx3Y">
-            <h1 class="headline-md text-primary uppercase tracking-tight">Blood Banks Dhaka</h1>
+            <h1 class="headline-md text-primary uppercase tracking-tight">Blood Banks</h1>
         </div>
         <div class="flex items-center gap-2">
-            <span class="text-xs text-on-surface-variant/60">10 Centers</span>
             <span class="material-symbols-outlined text-primary text-xl">bloodtype</span>
         </div>
     </header>
     
     <main class="pt-24 pb-32 px-5 max-w-lg mx-auto">
-        <!-- Header Section -->
+        <!-- Header Section with Bank Count -->
         <div class="mb-5">
-            <h2 class="text-xl font-bold text-primary mb-1">🩸 Blood Banks in Dhaka</h2>
-            <p class="text-xs text-on-surface-variant/70">Verified blood donation centers & transfusion services</p>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="material-symbols-outlined text-primary text-xl">location_city</span>
+                <h2 class="text-lg font-bold text-primary">Blood Banks in Dhaka</h2>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                <p class="text-xs text-on-surface-variant/70" id="bankCount">Loading banks...</p>
+            </div>
         </div>
         
         <!-- Banks List Container with Scrollbar -->
@@ -102,6 +107,16 @@
         <div class="glass-card rounded-xl p-4 mt-5 text-center">
             <span class="material-symbols-outlined text-primary text-2xl">emergency</span>
             <p class="text-xs text-on-surface-variant/80 mt-1">For emergency blood requirements, please call the blood bank directly before visiting.</p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="text-center py-4 mt-4">
+            <p class="text-xs text-on-surface-variant/50">
+                <span class="text-primary font-bold">DCM 15</span> Blood Donor Directory | 
+                <span class="text-primary font-bold">DCM 15</span> | 
+                Made by <span class="text-primary font-bold">SOUAD 76</span> | 
+                © 2025
+            </p>
         </div>
     </main>
     
@@ -205,6 +220,14 @@
             }
         ];
 
+        // Update bank count display
+        function updateBankCount() {
+            const bankCountElement = document.getElementById('bankCount');
+            if (bankCountElement) {
+                bankCountElement.textContent = `${bloodBanks.length} verified blood banks found in Dhaka`;
+            }
+        }
+
         // Function to format phone numbers as clickable links
         function formatPhoneNumbers(numbers) {
             return numbers.map(num => {
@@ -269,6 +292,7 @@
         }
 
         // Initialize
+        updateBankCount();
         renderBloodBanks();
         
         console.log('Loaded', bloodBanks.length, 'real blood banks in Dhaka');
